@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 @Entity
 public class NoteEntity {
 
-
+    @Id
     @GeneratedValue
     private long id;
     private String title;
