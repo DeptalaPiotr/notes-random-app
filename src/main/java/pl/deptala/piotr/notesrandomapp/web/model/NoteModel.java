@@ -40,5 +40,12 @@ public class NoteModel {
         this.text = text;
     }
 
-
+    @Override
+    public String toString() {
+        return "NoteModel{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", text='" + text + '\'' +
+                '}';
+    }
 }
