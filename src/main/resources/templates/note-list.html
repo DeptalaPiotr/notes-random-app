@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title> List Notes </title>
+</head>
+
+<body>
+<div>
+  <h1> List Notes </h1>
+  <div>
+    <table>
+      <thead>
+      <tr>
+        <th> Id </th>
+        <th> Title </th>
+        <th> Text </th>
+        <th> Read </th>
+        <th> Update </th>
+        <th> Delete </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:if="${notes.empty}">
+        <td colspan="2"> No Notes Available </td>
+      </tr>
+      <tr th:each="note : ${notes}">
+        <td><span th:text="${note.id}"> Id </span></td>
+        <td><span th:text="${note.title}"> Title </span></td>
+        <td><span th:text="${note.text}"> Note </span></td>
+        <td><a href="#" th:href="@{/notes/{id}(id=${note.id})}" >Read </a></td>
+        <td><a href="#" th:href="@{/notes/update/{id}(id=${note.id})}">Update </a></td>
+        <td><a href="#" th:href="@{/notes/delete/{id}(id=${note.id})}" >Delete </a></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div>
+    <a href="#" th:href="@{/notes/create}" > Create </a>
+  </div>
+  <div>
+    <a href="#" th:href="@{/notes/random}" > Random Note </a>
+  </div>
+  <div>
+    <p>
+    </p>
+  </div>
+</div>
+</body>
+</html>

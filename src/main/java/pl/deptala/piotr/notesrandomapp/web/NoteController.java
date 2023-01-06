@@ -1,7 +1,9 @@
 package pl.deptala.piotr.notesrandomapp.web;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.deptala.piotr.notesrandomapp.api.exception.NoteNotFoundException;
 import pl.deptala.piotr.notesrandomapp.service.NoteService;
@@ -25,13 +27,15 @@ public class NoteController {
     @GetMapping(value = "/create")
     public String createView() {
         LOGGER.info("createView()");
-        return "";
+        return "create-note";
     }
 
-    public void create(NoteModel noteModel) {
+    @PostMapping
+    public String create(NoteModel noteModel) {
         LOGGER.info("create(" + noteModel + ")");
         NoteModel createdModel = noteService.create(noteModel);
         LOGGER.info("create(...)" + createdModel);
+        return "note-list";
     }
 
     // R - read
@@ -56,17 +60,29 @@ public class NoteController {
     }
 
     // L - list
-    public void list() {
+    @GetMapping(value = "/list")
+//    public String listView() {
+//        LOGGER.info("listView()");
+//        return "note-list";
+//    }
+//
+//    @GetMapping
+    public String list(ModelMap modelMap) {
         LOGGER.info("list()");
         List<NoteModel> noteModels = noteService.list();
+        modelMap.addAttribute("notes", noteModels);
         LOGGER.info("list(...)" + noteModels);
+        return "note-list";
     }
 
     // Random
-    public void random() {
+    @GetMapping(value = "/random")
+    public String random(ModelMap modelMap) {
         LOGGER.info("random()");
         List<NoteModel> randomList = noteService.list();
         NoteModel randomModel = noteService.random(randomList);
+        modelMap.addAttribute("randomModel", randomModel);
         LOGGER.info("random(...)" + randomModel);
+        return "random";
     }
 }
