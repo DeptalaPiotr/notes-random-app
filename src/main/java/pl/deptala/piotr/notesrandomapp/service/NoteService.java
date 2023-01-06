@@ -57,4 +57,14 @@ public class NoteService {
             LOGGER.info("update(...)" + noteModel);
             return noteModel;
         }
+
+        // D - delete
+        public void delete(Long id) throws NoteNotFoundException {
+            LOGGER.info("delete(" + id + ")");
+            Optional<NoteEntity> optionalNoteEntity = noteRepository.findById(id);
+            NoteEntity noteEntity = optionalNoteEntity.orElseThrow(
+                    () -> new NoteNotFoundException("Nie znaleziono samochodu o ID " + id));
+            noteRepository.delete(noteEntity);
+            LOGGER.info("delete(...)" + noteEntity);
+        }
     }
