@@ -1,7 +1,7 @@
 package pl.deptala.piotr.notesrandomapp.service;
 
 import org.springframework.stereotype.Service;
-import pl.deptala.piotr.notesrandomapp.exception.NoteNotFoundException;
+import pl.deptala.piotr.notesrandomapp.api.exception.NoteNotFoundException;
 import pl.deptala.piotr.notesrandomapp.repository.NoteRepository;
 import pl.deptala.piotr.notesrandomapp.repository.entity.NoteEntity;
 import pl.deptala.piotr.notesrandomapp.service.mapper.NoteMapper;
@@ -9,7 +9,6 @@ import pl.deptala.piotr.notesrandomapp.web.model.NoteModel;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
 @Service
@@ -66,5 +65,14 @@ public class NoteService {
                     () -> new NoteNotFoundException("Nie znaleziono samochodu o ID " + id));
             noteRepository.delete(noteEntity);
             LOGGER.info("delete(...)" + noteEntity);
+        }
+
+        // L - list
+        public List<NoteModel> list() {
+            LOGGER.info("list()");
+            List<NoteEntity> notesEntities = noteRepository.findAll();
+            List<NoteModel> noteModels = noteMapper.fromEntities(notesEntities);
+            LOGGER.info("list(...)" + noteModels);
+            return noteModels;
         }
     }
