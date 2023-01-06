@@ -47,4 +47,14 @@ public class NoteService {
             LOGGER.info("read(...)" + noteModel);
             return noteModel;
         }
+
+        // U - update
+        public NoteModel update(NoteModel note) {
+            LOGGER.info("update(" + note + ")");
+            NoteEntity updateNote = noteMapper.from(note);
+            NoteEntity saveNoteEntity = noteRepository.save(updateNote);
+            NoteModel noteModel = noteMapper.from(saveNoteEntity);
+            LOGGER.info("update(...)" + noteModel);
+            return noteModel;
+        }
     }
