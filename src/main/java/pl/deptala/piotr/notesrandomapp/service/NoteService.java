@@ -1,4 +1,37 @@
 package pl.deptala.piotr.notesrandomapp.service;
 
+import org.springframework.stereotype.Service;
+import pl.deptala.piotr.notesrandomapp.repository.NoteRepository;
+import pl.deptala.piotr.notesrandomapp.repository.entity.NoteEntity;
+import pl.deptala.piotr.notesrandomapp.service.mapper.NoteMapper;
+import pl.deptala.piotr.notesrandomapp.web.model.NoteModel;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.ResourceBundle;
+import java.util.logging.Logger;
+
+@Service
 public class NoteService {
-}
+
+
+
+        private static final Logger LOGGER = Logger.getLogger(NoteService.class.getName());
+        private NoteRepository noteRepository;
+        private NoteMapper noteMapper;
+
+    public NoteService(NoteRepository noteRepository, NoteMapper noteMapper) {
+        this.noteRepository = noteRepository;
+        this.noteMapper = noteMapper;
+    }
+
+    // C - create
+        public NoteModel create(NoteModel carModel) {
+            LOGGER.info("create(" + carModel + ")");
+            NoteEntity noteEntity = noteMapper.from(carModel);
+            NoteEntity savedNoteEntity = noteRepository.save(noteEntity);
+            NoteModel mappedNoteModel = noteMapper.from(savedNoteEntity);
+            LOGGER.info("create(...) = " + mappedNoteModel);
+            return mappedNoteModel;
+        }
+    }

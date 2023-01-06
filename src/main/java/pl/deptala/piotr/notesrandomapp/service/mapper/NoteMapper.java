@@ -13,12 +13,12 @@ import java.util.stream.Collectors;
 public class NoteMapper {
     private static final Logger LOGGER = Logger.getLogger(NoteMapper.class.getName());
 
-    public NoteEntity from(NoteModel carModel) {
+    public NoteEntity from(NoteModel noteModel) {
         LOGGER.info("from()");
         ModelMapper modelMapper = new ModelMapper();
-        NoteEntity carEntity = modelMapper.map(carModel, NoteEntity.class);
-        LOGGER.info("from(...)" + carEntity);
-        return carEntity;
+        NoteEntity noteEntity = modelMapper.map(noteModel, NoteEntity.class);
+        LOGGER.info("from(...)" + noteEntity);
+        return noteEntity;
     }
 
     public NoteModel from(NoteEntity noteEntity) {
