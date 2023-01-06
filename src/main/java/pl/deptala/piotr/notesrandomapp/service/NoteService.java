@@ -1,6 +1,7 @@
 package pl.deptala.piotr.notesrandomapp.service;
 
 import org.springframework.stereotype.Service;
+import pl.deptala.piotr.notesrandomapp.exception.NoteNotFoundException;
 import pl.deptala.piotr.notesrandomapp.repository.NoteRepository;
 import pl.deptala.piotr.notesrandomapp.repository.entity.NoteEntity;
 import pl.deptala.piotr.notesrandomapp.service.mapper.NoteMapper;
@@ -33,5 +34,17 @@ public class NoteService {
             NoteModel mappedNoteModel = noteMapper.from(savedNoteEntity);
             LOGGER.info("create(...) = " + mappedNoteModel);
             return mappedNoteModel;
+        }
+
+
+        // R - read
+        public NoteModel read(Long id) throws NoteNotFoundException {
+            LOGGER.info("read(" + id + ")");
+            Optional<NoteEntity> optionalNoteEntity = noteRepository.findById(id);
+            NoteEntity noteEntity = optionalNoteEntity.orElseThrow(
+                    () -> new NoteNotFoundException("Nie znaleziono notatki o ID " + id));
+            NoteModel noteModel = noteMapper.from(noteEntity);
+            LOGGER.info("read(...)" + noteModel);
+            return noteModel;
         }
     }
