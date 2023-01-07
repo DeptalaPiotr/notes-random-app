@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import pl.deptala.piotr.notesrandomapp.api.exception.NoteNotFoundException;
 import pl.deptala.piotr.notesrandomapp.repository.NoteRepository;
 import pl.deptala.piotr.notesrandomapp.web.model.NoteModel;
 
@@ -31,7 +32,18 @@ class NoteServiceTest {
     }
 
     @Test
-    void read() {
+    void read() throws NoteNotFoundException {
+
+        // Given
+        NoteModel noteModel = new NoteModel();
+
+        // When
+        NoteModel readNoteModel = noteService.read(noteModel.getId());
+
+        // Then
+        Assertions.assertAll(
+                () -> Assertions.assertNotNull(readNoteModel, "createdNoteModel is NULL"),
+                () -> Assertions.assertNotNull(readNoteModel.getId(), "createdNoteModel ID is NULL"));
     }
 
     @Test
