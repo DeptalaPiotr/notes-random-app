@@ -48,6 +48,19 @@ class NoteServiceTest {
 
     @Test
     void update() {
+
+        // Given
+        NoteModel noteModel = new NoteModel();
+        noteModel.setTitle("Update Test");
+        noteModel.setText("Updated note text");
+
+        // When
+        NoteModel updateNoteModel = noteService.update(noteModel);
+
+        // Then
+        Assertions.assertAll(
+                () -> Assertions.assertNotNull(updateNoteModel, "createdNoteModel is NULL"),
+                () -> Assertions.assertNotNull(updateNoteModel.getId(), "createdNoteModel ID is NULL"));
     }
 
     @Test
