@@ -64,7 +64,14 @@ class NoteServiceTest {
     }
 
     @Test
-    void delete() {
+    void delete() throws NoteNotFoundException {
+
+        // Given
+        NoteModel noteModel = new NoteModel();
+
+        // When
+        noteService.delete(noteModel.getId());
+        // Then
     }
 
     @Test
