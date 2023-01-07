@@ -40,10 +40,16 @@ public class NoteController {
     }
 
     // R - read
-    public void read(Long id) throws NoteNotFoundException {
+    @GetMapping(value = "/{id}")
+    public String read(
+            @PathVariable(name = "id") Long id,
+            ModelMap modelMap)
+            throws NoteNotFoundException {
         LOGGER.info("read()");
-        NoteModel read = noteService.read(id);
-        LOGGER.info("read(...)" + read);
+        NoteModel readNote = noteService.read(id);
+        modelMap.addAttribute("readNote", readNote);
+        LOGGER.info("read(...)" + readNote);
+        return "read-note";
     }
 
 
