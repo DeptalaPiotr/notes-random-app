@@ -36,7 +36,7 @@ public class NoteController {
         LOGGER.info("create(" + noteModel + ")");
         NoteModel createdModel = noteService.create(noteModel);
         LOGGER.info("create(...)" + createdModel);
-        return "note-list";
+        return "redirect:/notes/list";
     }
 
     // R - read
@@ -57,7 +57,7 @@ public class NoteController {
     }
 
     @PostMapping(value = "/update")
-    public String update(NoteModel noteModel) throws NoteNotFoundException{
+    public String update(NoteModel noteModel) throws NoteNotFoundException {
         LOGGER.info("update()");
         NoteModel updateModel = noteService.update(noteModel);
         LOGGER.info("update(...)" + updateModel);
@@ -65,10 +65,12 @@ public class NoteController {
     }
 
     // D - delete
-    public void delete(Long id) throws NoteNotFoundException {
+    @GetMapping(value = "/delete/{id}")
+    public String delete(@PathVariable(name = "id") Long id) throws NoteNotFoundException {
         LOGGER.info("delete()" + id);
         noteService.delete(id);
         LOGGER.info("delete(...)" + id);
+        return "redirect:/notes/list";
     }
 
     // L - list
