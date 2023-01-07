@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Update Note</title>
+</head>
+<body>
+<div>
+  <h1> Update note </h1>
+</div>
+<form action="#" th:action="@{/notes/update}" th:object="${readNoteModel}" method="post">
+  <input type="hidden" id="id" name="id" th:value="*{id}"><br>
+  <label for="title">Title:</label><br>
+  <!--    <input type="text" id="brand" name="brand" th:value="${car.brand}"><br>-->
+  <input type="text" id="title" th:field="${readNoteModel.title}"><br>
+  <label for="text">Note text:</label><br>
+  <input type="text" id="text" name="text" th:value="${readNoteModel.text}"><br>
+  <input type="submit" value="Submit">
+</form>
+</div>
+</body>
+</html>

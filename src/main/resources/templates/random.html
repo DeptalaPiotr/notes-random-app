@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title> Random Note </title>
+</head>
+<body>
+<div>
+
+    <h1> Random Note </h1>
+
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th> Title </th>
+                <th> Note </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="note : ${randomModel}">
+                <td><span th:text="${note.title}"> Title </span></td>
+                <td><span th:text="${note.text}"> Text </span></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <a href="#" th:href="@{/notes/list}" > Note List </a>
+    </div>
+    <div>
+        <a href="#" th:href="@{/notes/random}" > Next Note </a>
+    </div>
+</div>
+</body>
+</html>
