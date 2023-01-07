@@ -3,6 +3,7 @@ package pl.deptala.piotr.notesrandomapp.web;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.deptala.piotr.notesrandomapp.api.exception.NoteNotFoundException;
@@ -45,11 +46,22 @@ public class NoteController {
         LOGGER.info("read(...)" + read);
     }
 
+
     // U - update
-    public void update(NoteModel noteModel) {
+    @GetMapping(value = "/update/{id}")
+    public String updateView(@PathVariable(name = "id") Long id, ModelMap modelMap) throws NoteNotFoundException {
+        LOGGER.info("updateView() ID: " + id);
+        NoteModel readNoteModel = noteService.read(id);
+        modelMap.addAttribute("readNoteModel", readNoteModel);
+        return "update-note";
+    }
+
+    @PostMapping(value = "/update")
+    public String update(NoteModel noteModel) throws NoteNotFoundException{
         LOGGER.info("update()");
         NoteModel updateModel = noteService.update(noteModel);
         LOGGER.info("update(...)" + updateModel);
+        return "redirect:/notes/list";
     }
 
     // D - delete
@@ -61,12 +73,6 @@ public class NoteController {
 
     // L - list
     @GetMapping(value = "/list")
-//    public String listView() {
-//        LOGGER.info("listView()");
-//        return "note-list";
-//    }
-//
-//    @GetMapping
     public String list(ModelMap modelMap) {
         LOGGER.info("list()");
         List<NoteModel> noteModels = noteService.list();
