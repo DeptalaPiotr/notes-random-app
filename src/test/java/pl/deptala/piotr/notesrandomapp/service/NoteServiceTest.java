@@ -45,8 +45,8 @@ class NoteServiceTest {
 
         // Then
         Assertions.assertAll(
-                () -> Assertions.assertNotNull(readNoteModel, "createdNoteModel is NULL"),
-                () -> Assertions.assertNotNull(readNoteModel.getId(), "createdNoteModel ID is NULL"));
+                () -> Assertions.assertNotNull(readNoteModel, "readNoteModel is NULL"),
+                () -> Assertions.assertNotNull(readNoteModel.getId(), "readNoteModel ID is NULL"));
     }
 
     @Test
@@ -62,8 +62,8 @@ class NoteServiceTest {
 
         // Then
         Assertions.assertAll(
-                () -> Assertions.assertNotNull(updateNoteModel, "createdNoteModel is NULL"),
-                () -> Assertions.assertNotNull(updateNoteModel.getId(), "createdNoteModel ID is NULL"));
+                () -> Assertions.assertNotNull(updateNoteModel, "updateNoteModel is NULL"),
+                () -> Assertions.assertNotNull(updateNoteModel.getId(), "updateNoteModel ID is NULL"));
     }
 
     @Test
@@ -99,5 +99,21 @@ class NoteServiceTest {
 
     @Test
     void random() {
+
+        // Given
+        NoteModel noteModel1 = new NoteModel();
+        NoteModel noteModel2 = new NoteModel();
+        NoteModel noteModel3 = new NoteModel();
+        List<NoteModel> noteModelsList = new ArrayList<>();
+        noteModelsList.add(noteModel1);
+        noteModelsList.add(noteModel2);
+        noteModelsList.add(noteModel3);
+
+        // When
+        NoteModel randomModel = noteService.random(noteModelsList);
+
+        // Then
+        Assertions.assertAll(
+                () -> Assertions.assertNotNull(randomModel, "random Model is NULL"));
     }
 }
