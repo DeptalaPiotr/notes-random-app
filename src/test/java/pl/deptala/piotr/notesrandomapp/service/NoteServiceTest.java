@@ -8,6 +8,9 @@ import pl.deptala.piotr.notesrandomapp.api.exception.NoteNotFoundException;
 import pl.deptala.piotr.notesrandomapp.repository.NoteRepository;
 import pl.deptala.piotr.notesrandomapp.web.model.NoteModel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -76,6 +79,22 @@ class NoteServiceTest {
 
     @Test
     void list() {
+
+        // Given
+        NoteModel noteModel1 = new NoteModel();
+        NoteModel noteModel2 = new NoteModel();
+        NoteModel noteModel3 = new NoteModel();
+        List<NoteModel> noteModelsList = new ArrayList<>();
+        noteModelsList.add(noteModel1);
+        noteModelsList.add(noteModel2);
+        noteModelsList.add(noteModel3);
+
+        // When
+        List<NoteModel> testedList = noteService.list();
+
+        // Then
+        Assertions.assertAll(
+                () -> Assertions.assertNotNull(testedList, "list is NULL"));
     }
 
     @Test
