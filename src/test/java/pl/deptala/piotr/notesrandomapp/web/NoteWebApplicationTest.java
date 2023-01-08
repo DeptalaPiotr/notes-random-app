@@ -80,7 +80,17 @@ class NoteWebApplicationTest {
     }
 
     @Test
-    void update() {
+    void update() throws Exception {
+        // Given
+        String updateUrl = "/notes/update/{id}";
+
+        // When
+        ResultActions resultActions = mockMvc.perform(get(updateUrl, 1));
+
+        // Then
+        resultActions
+                .andDo(print())
+                .andExpect(status().isOk());
     }
 
     @Test
