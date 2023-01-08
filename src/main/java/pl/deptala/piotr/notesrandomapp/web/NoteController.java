@@ -36,7 +36,7 @@ public class NoteController {
         LOGGER.info("create(" + noteModel + ")");
         NoteModel createdModel = noteService.create(noteModel);
         LOGGER.info("create(...)" + createdModel);
-        return "redirect:/notes/list";
+        return "redirect:/notes";
     }
 
     // R - read
@@ -67,7 +67,7 @@ public class NoteController {
         LOGGER.info("update()");
         NoteModel updateModel = noteService.update(noteModel);
         LOGGER.info("update(...)" + updateModel);
-        return "redirect:/notes/list";
+        return "redirect:/notes";
     }
 
     // D - delete
@@ -76,11 +76,11 @@ public class NoteController {
         LOGGER.info("delete()" + id);
         noteService.delete(id);
         LOGGER.info("delete(...)" + id);
-        return "redirect:/notes/list";
+        return "redirect:/notes";
     }
 
     // L - list
-    @GetMapping(value = "/list")
+    @GetMapping
     public String list(ModelMap modelMap) {
         LOGGER.info("list()");
         List<NoteModel> noteModels = noteService.list();
