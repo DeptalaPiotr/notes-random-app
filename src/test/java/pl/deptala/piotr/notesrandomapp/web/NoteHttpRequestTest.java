@@ -35,7 +35,7 @@ public class NoteHttpRequestTest {
 
         // Given
         String url = "http://localhost:" + port + "/notes/create";
-        String createdNoteHtmlFragment = "Create Note";
+        String createdNoteHtmlFragment = "Create Note";  // Fragment szukany w pliku html
 
         // When
         String forObject = testRestTemplate.getForObject(url, String.class);
@@ -44,5 +44,21 @@ public class NoteHttpRequestTest {
         Assertions
                 .assertThat(forObject)
                 .contains(createdNoteHtmlFragment);
+    }
+
+    @Test
+    void read(){
+
+        // Given
+        String url = "http://localhost:" + port + "/notes/read/{id}";
+        String readNoteHtmlFragment = "Note Title";
+
+        // When
+        String testRestTemplateForObject = testRestTemplate.getForObject(url, String.class);
+
+        // Then
+        Assertions
+                .assertThat(testRestTemplateForObject)
+                .contains(readNoteHtmlFragment);
     }
 }
