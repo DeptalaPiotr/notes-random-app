@@ -94,11 +94,35 @@ class NoteWebApplicationTest {
     }
 
     @Test
-    void delete() {
+    void delete() throws Exception {
+        // Given
+        String deleteUrl = "/notes/delete/{id}";
+
+        // When
+        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders
+                .get(deleteUrl, "1")
+                .contentType(MediaType.APPLICATION_JSON));
+
+        // Then
+        resultActions
+                .andDo(print())
+                .andExpect(status().isOk());
     }
 
     @Test
-    void list() {
+    void list() throws Exception {
+
+        // Given
+        String listUrl = "/notes/list";
+
+        // When
+        ResultActions resultActions = mockMvc.perform(get(listUrl)
+                .contentType(MediaType.APPLICATION_JSON));
+
+        // Then
+        resultActions
+                .andDo(print())
+                .andExpect(status().isOk());
     }
 
     @Test
