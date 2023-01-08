@@ -17,6 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
+
 @SpringBootTest
 @AutoConfigureMockMvc
 class NoteWebApplicationTest {
@@ -64,11 +65,18 @@ class NoteWebApplicationTest {
     }
 
     @Test
-    void read() {
-    }
+    void read() throws Exception {
 
-    @Test
-    void updateView() {
+        // Given
+        String readUrl = "/notes/{id}";
+
+        // When
+        ResultActions resultActions = mockMvc.perform(get(readUrl,1));
+
+        // Then
+        resultActions
+                .andDo(print())
+                .andExpect(status().isOk());
     }
 
     @Test
