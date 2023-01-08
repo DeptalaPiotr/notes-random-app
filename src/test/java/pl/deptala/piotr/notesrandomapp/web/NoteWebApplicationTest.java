@@ -1,0 +1,89 @@
+package pl.deptala.piotr.notesrandomapp.web;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import pl.deptala.piotr.notesrandomapp.web.model.NoteModel;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+
+@SpringBootTest
+@AutoConfigureMockMvc
+class NoteWebApplicationTest {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Test
+    void note() throws Exception {
+        // Given
+        String endPoint = "/notes";
+
+        // When
+        ResultActions resultActions = mockMvc.perform(get(endPoint));
+
+        // Then
+        resultActions
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void create() throws Exception {
+        // Given
+        String endPoint = "/notes/create";
+
+        NoteModel noteModel = new NoteModel();
+        noteModel.setTitle("WebApplicationTest");
+        noteModel.setText("Tested set Text");
+
+
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("title", noteModel.getTitle());
+        params.add("text", noteModel.getText());
+
+        // When
+        ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders
+                .post(endPoint)
+                .params(params)
+                .accept(MediaType.APPLICATION_JSON));
+
+        // Then
+        resultActions
+                .andExpect(status().is3xxRedirection());
+    }
+
+    @Test
+    void read() {
+    }
+
+    @Test
+    void updateView() {
+    }
+
+    @Test
+    void update() {
+    }
+
+    @Test
+    void delete() {
+    }
+
+    @Test
+    void list() {
+    }
+
+    @Test
+    void random() {
+    }
+}
