@@ -26,23 +26,9 @@ class NoteWebApplicationTest {
     private MockMvc mockMvc;
 
     @Test
-    void note() throws Exception {
-        // Given
-        String endPoint = "/notes";
-
-        // When
-        ResultActions resultActions = mockMvc.perform(get(endPoint));
-
-        // Then
-        resultActions
-                .andDo(print())
-                .andExpect(status().isOk());
-    }
-
-    @Test
     void create() throws Exception {
         // Given
-        String endPoint = "/notes/create";
+        String endPoint = "notes/create";
 
         NoteModel noteModel = new NoteModel();
         noteModel.setTitle("WebApplicationTest");
@@ -113,7 +99,7 @@ class NoteWebApplicationTest {
     void list() throws Exception {
 
         // Given
-        String listUrl = "/notes/list";
+        String listUrl = "/notes";
 
         // When
         ResultActions resultActions = mockMvc.perform(get(listUrl)
@@ -129,7 +115,7 @@ class NoteWebApplicationTest {
     void random() throws Exception {
 
         // Given
-        String randomUrl = "/notes/list";
+        String randomUrl = "/notes/random";
 
         // When
         ResultActions resultActions = mockMvc.perform(get(get(randomUrl)
