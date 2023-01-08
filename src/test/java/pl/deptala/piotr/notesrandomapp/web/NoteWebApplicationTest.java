@@ -126,6 +126,18 @@ class NoteWebApplicationTest {
     }
 
     @Test
-    void random() {
+    void random() throws Exception {
+
+        // Given
+        String randomUrl = "/notes/list";
+
+        // When
+        ResultActions resultActions = mockMvc.perform(get(get(randomUrl)
+                .contentType(MediaType.APPLICATION_JSON).toString()));
+
+        // Then
+        resultActions
+                .andDo(print())
+                .andExpect(status().isOk());
     }
 }
