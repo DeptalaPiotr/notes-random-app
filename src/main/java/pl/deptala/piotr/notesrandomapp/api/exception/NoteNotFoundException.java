@@ -1,6 +1,6 @@
 package pl.deptala.piotr.notesrandomapp.api.exception;
 
-public class NoteNotFoundException extends Exception {
+public class NoteNotFoundException extends NoteException {
 
     public NoteNotFoundException(String message) {
         super(message);
